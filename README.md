@@ -1,5 +1,8 @@
 # README
 
+# cafeteria_manager
+## SaaS WD201 Capstone Project (option 1) under development
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
