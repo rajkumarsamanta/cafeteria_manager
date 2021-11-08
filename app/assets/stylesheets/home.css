@@ -1,0 +1,26 @@
+.HomeHeader-title {
+  text-align: center;
+  font-size: large;
+  background-color: rgb(243, 169, 99);
+  color: rgb(23, 70, 173);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.Home-authenticate {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.HomeHeader-div {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.HomeTitle {
+  text-align: center;
+  margin: 20px;
+  color: rgb(146, 29, 140);
+  font-weight: bold;
+}

@@ -1,0 +1,33 @@
+.SessionNew-section {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.SessionNewForm-section {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.SessionNew-title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.SessionNewForm-div {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.SessionNewUser-signup {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.SessionNewForm-paragraph {
+  margin-bottom: 5px;
+}
+
+.SessionNew-submitButton {
+  background-color: rgb(105, 173, 105);
+  font-size: 20px;
+}

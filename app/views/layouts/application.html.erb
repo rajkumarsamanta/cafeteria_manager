@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CafeteriaManager</title>
+    <title>Cafe Raj's Manager App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,23 @@
   </head>
 
   <body>
+    <div class="HomeHeader-div">
+      <% if session[:current_user] %>
+        <p class="HomeHeader-title">Hello <%= session[:current_user] %>
+            ! Wlecome Cafe Raj's Services. you are logged in as: <%= session[:current_role] %>
+        </p>
+        <p> <%= link_to "Sign-out", destroy_session_path, method: "delete" %> </p>
+      <% else %>
+        <p class="HomeHeader-title">Hello Friend ! Welcome to Cafe Raj's Services.
+              Please <%= link_to "Sign-in", new_sessions_path, method: "get" %>
+              to help us to serve you better.
+        </p>
+      <% end %>
+    </div>
     <%= yield %>
+    <h3 style="background-color:lightgreen;color:blue;
+                text-align:center;margin-top:10px;">
+        Copy-right@rks durgapur
+    </h3>
   </body>
 </html>

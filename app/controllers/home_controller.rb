@@ -1,5 +1,11 @@
 class HomeController < ApplicationController
+  skip_before_action :ensure_user_logged_in
+
   def index
-    render plain: "Hello, This is Cafe Raj's Home Page opeining shortly"
+    if current_user
+      redirect_to users_path
+    else
+      render "index"
+    end
   end
 end
