@@ -18,8 +18,13 @@
   margin-bottom: 5px;
 }
 
-.SessionNewUser-signup {
-  text-align: center;
+.SessionNewForm-email {
+  text-align: justify;
+  margin-bottom: 5px;
+}
+
+.SessionNewForm-password {
+  text-align: justify;
   margin-bottom: 5px;
 }
 

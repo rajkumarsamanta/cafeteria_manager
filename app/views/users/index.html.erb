@@ -1,1 +1,16 @@
-<p class="UserTitle"> This is your work area. </p>
+<section class="MenuSection">
+  <div>
+  <hr>
+  <p class = "HomeMenu-title">Currently active Menu Category</p>
+  <hr>
+    <ul class="MenuUl-list">
+      <% @menu_categories.each do |menu| %>
+        <li class="MenuItems-list">
+          <label class="MenuItems-container">
+            <p class="MenuItems"> <%= menu.name %> </p>
+          </label>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>

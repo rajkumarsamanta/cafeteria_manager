@@ -11,19 +11,37 @@
   </head>
 
   <body>
-    <div class="HomeHeader-div">
+    <div class="HomeBanner-div">
+      <p class="HomeBanner-title">
+          <%= link_to "Home", "/", method: "GET" %>
+      </p>
+
       <% if session[:current_user] %>
-        <p class="HomeHeader-title">Hello <%= session[:current_user] %>
-            ! Wlecome Cafe Raj's Services. you are logged in as: <%= session[:current_role] %>
-        </p>
+        <% if session[:current_role] == "owner" %>
+          <p class="HomeHeader-title"> <%= link_to "Manage Users", manage_users_path %> </p>
+          <p class="HomeHeader-title"> Manage Menu</p>
+        <% else %>
+          <p class="HomeHeader-title">
+            <%= link_to "Change Password", "/changepassword", method: "GET" %>
+          </p>
+        <% end %>
         <p> <%= link_to "Sign-out", destroy_session_path, method: "delete" %> </p>
-      <% else %>
-        <p class="HomeHeader-title">Hello Friend ! Welcome to Cafe Raj's Services.
-              Please <%= link_to "Sign-in", new_sessions_path, method: "get" %>
-              to help us to serve you better.
+    </div>
+    <div class="HomeHeader-div">
+        <p class="HomeHeader-message">Hello <%= session[:current_user] %>
+            ! Welcome Cafe Raj's Services. you are: <%= session[:current_role] %>
         </p>
+      <% else %>
+        <p class="HomeHeader-message">Hello Friend ! Welcome to Cafe Raj's Services.
+              Please <%= link_to "Sign-in", new_sessions_path, method: "get" %>
+              to help us serve you better.
+        </p>
+        <p class="HomeBanner-title">New User <%= link_to "Sign-Up", new_user_path %> </p>
       <% end %>
     </div>
+    <p class="Flash-message">
+        <%= flash[:error] %>
+    </p>
     <%= yield %>
     <h3 style="background-color:lightgreen;color:blue;
                 text-align:center;margin-top:10px;">

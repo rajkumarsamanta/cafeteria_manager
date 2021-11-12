@@ -1,10 +1,57 @@
 .HomeHeader-title {
   text-align: center;
-  font-size: large;
-  background-color: rgb(243, 169, 99);
+  font-size: small;
+  /* background-color: rgb(219, 174, 132); */
   color: rgb(23, 70, 173);
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+.MenuSection {
+  text-align: center;
+  margin: 10px;
+}
+
+.AddMenu {
+  margin: 10px;
+}
+
+.NewMenuForm-submitbutton {
+  margin-bottom: 10px;
+  font-size: 17px;
+  background-color: rgb(78, 163, 78);
+}
+
+.NewMenu-title {
+  text-align: center;
+  font-size: medium;
+  color: green;
+  font-weight: bolder;
+  margin-bottom: 15px;
+}
+
+.HomeMenu-title {
+  text-align: center;
+  font-size: medium;
+  color: green;
+  font-weight: bolder;
+  margin: 10px;
+}
+
+.HomeHeader-message {
+  text-align: center;
+  font-size: medium;
+  /* background-color: rgb(219, 174, 132); */
+  color: rgb(20, 63, 26);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.HomeBanner-title {
+  font-size: small;
+  background-color: rgb(207, 204, 201);
+  color: rgb(23, 70, 173);
+  font-weight: bold;
 }
 
 .Home-authenticate {
@@ -15,7 +62,17 @@
 .HomeHeader-div {
   display: flex;
   justify-content: space-around;
-  margin: 20px;
+  margin: 5px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.HomeBanner-div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  margin-left: 75px;
+  margin-right: 75px;
 }
 
 .HomeTitle {
@@ -23,4 +80,12 @@
   margin: 20px;
   color: rgb(146, 29, 140);
   font-weight: bold;
+}
+
+.Flash-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }

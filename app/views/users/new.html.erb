@@ -1,24 +1,38 @@
-<p class = "UserNew-title">Welcome to Cafe Raj's New User Sign-up page</p>
-<section class="UserNew-section">
-  <%= form_with url: users_path do |form| %>
-    <div class="UserNewForm-div">
-      <p class="UserNewForn-paragraph">Your Name</p>
-      <%= form.text_field :name, class: "UserNewForm-input", autofocus: true %>
-    </div>
-    <div class="UserNewForm-div">
-      <p class="UserNewForn-paragraph">You are (Owner or Customer or Clerk):</p>
-      <%= form.text_field :role, class: "UserNewForm-input" %>
-    </div>
-    <div class="UserNewForm-div">
-      <p class="UserNewForn-paragraph">Email</p>
-      <%= form.email_field :email, class: "UserNewForm-input" %>
-    </div>
-    <div class="UserNewForm-div">
-      <p class="UserNewForn-paragraph">Password</p>
-     <%= form.password_field :password, class: "UserNewForm-input" %>
-    </div>
-    <div class="UserNewForm-div">
-      <%= form.submit "Sign-up!", class: "UserNew-submitbutton" %>
-    </div>
-  <% end %>
-</section>
+<% if session[:current_role] != "clerk" %>
+  <p class = "UserNew-title">Welcome to Cafe Raj's New User Sign-up page</p>
+  <section class="UserNew-section">
+    <%= form_with url: users_path do |form| %>
+      <div class="UserNewForm-div">
+        <p class="UserNewForm-paragraph">Your Name</p>
+        <%= form.text_field :name, class: "UserNewForm-input", autofocus: true %>
+      </div>
+      <div class="UserNewForm-div">
+        <p class="UserNewForm-paragraph">You'll play the role of:</p>
+        <div class="UserNewForm-role">
+            <% if session[:current_role] == "owner" %>
+              <%= radio_button_tag("role", "clerk", checked= true )  %>
+              <p class="UserNewForm-paragraph">Clerk </p>
+              <%=   radio_button_tag("role", "owner", checked=false ) %>
+              <p class="UserNewForm-paragraph">Owner </p>
+            <% else %>
+              <%= radio_button_tag("role", "customer", checked=true ) %>
+              <p class="UserNewForm-paragraph">Customer </p>
+            <% end %>
+        </div>
+      </div>
+      <div class="UserNewForm-div">
+        <p class="UserNewForm-paragraph">Email</p>
+        <%= form.email_field :email, class: "UserNewForm-input" %>
+      </div>
+      <div class="UserNewForm-div">
+        <p class="UserNewForn-paragraph">Password</p>
+      <%= form.password_field :password, class: "UserNewForm-input" %>
+      </div>
+      <div class="UserNewForm-div">
+        <%= form.submit "Sign-up!", class: "UserNew-submitbutton" %>
+      </div>
+    <% end %>
+  </section>
+<% else %>
+  <p class = "ChangePassword-title">You are not authorized to create New User.</p>
+<% end %>

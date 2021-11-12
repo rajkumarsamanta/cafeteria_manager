@@ -4,6 +4,41 @@
   margin-bottom: 10px;
 }
 
+.AddUser {
+  display: flex;
+  margin: 5px;
+  align-items: baseline;
+}
+
+.AddUser-div {
+  display: flex;
+  align-items: baseline;
+  /*width: 500px; */
+  height: 50px;
+  border: 1px solid #000;
+  width: fit-content;
+}
+
+.NewUser-text {
+  font-size: 15px;
+  text-align: justify;
+  margin-bottom: 5px;
+}
+
+.NewUserName-div {
+  display: flex;
+  align-items: baseline;
+  margin: 5px;
+}
+
+.NewUserRole-div {
+  display: flex;
+  margin: 3px;
+  align-items: baseline;
+  border: 1px solid #000;
+  /* width: fit-content; */
+}
+
 .UserNew-title {
   text-align: center;
   margin-bottom: 10px;
@@ -19,9 +54,17 @@
   margin-bottom: 10px;
 }
 .UserNewForm-input {
-  padding: 10px;
   text-align: justify;
+  margin-bottom: 8px;
+}
+
+.UserNewForm-submitbutton {
   margin-bottom: 10px;
+  font-size: 15px;
+  background-color: rgb(78, 163, 78);
+}
+.BoldUser-text {
+  font-weight: bold;
 }
 
 .UserNew-submitbutton {
@@ -29,7 +72,76 @@
   font-size: 20px;
   background-color: rgb(78, 163, 78);
 }
+.UserItem {
+  margin-left: 10px;
+  margin-right: 20px;
+}
 
-.UserNewForn-paragraph {
+.MenuItems-list:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.MenuItems-container {
+  display: flex;
+  align-items: center;
+  height: 25px;
+  width: max-content;
+  margin-right: 10px;
+}
+
+.MenuItems-list:hover .MenuItems-list {
+  width: fit-content;
+}
+
+.UserItem-delete {
+  visibility: hidden;
+  margin-left: 10px;
+}
+
+.UserItem-update {
+  visibility: hidden;
+  margin-left: 10px;
+}
+
+.MenuItems-list:hover .UserItem-update {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.MenuItems-list:hover .UserItem-delete {
+  visibility: visible;
+  cursor: pointer;
+}
+.MenuItems-list {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  margin-left: 8px;
+  margin-bottom: 6px;
+  color: #09070e;
+  padding: 1px;
+  width: fit-content;
+}
+.UserNewForm-paragraph {
   margin-bottom: 5px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.UserNewForm-role {
+  text-align: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin: 10px;
+}
+
+.ChangePassword-title {
+  text-align: center;
+  font-size: large;
+  background-color: rgb(240, 235, 231);
+  color: rgb(231, 7, 7);
+  font-weight: bold;
+  margin-bottom: 10px;
 }

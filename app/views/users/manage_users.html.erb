@@ -1,0 +1,72 @@
+<section class="MenuSection">
+  <% if session[:current_role] == "owner" %>
+    <div class="AddUser-div">
+      <%= form_with(url: "/users", method: "POST", class: "AddUser") do %>
+      <div class="NewUserName-div">
+        <p class="AddUser-title">Name:</p>
+        <%= text_field_tag 'name', nil, placeholder: 'User name...',
+                            class: "UserNewForm-input", autofocus: true
+        %>
+      </div>
+        <div class="NewUserRole-div">
+          <p class="UserNewForm-paragraph">Role:</p>
+          <div class="NewUserName-div">
+              <%= radio_button_tag("role", "clerk", checked= true )  %>
+                <p class="UserNewForm-paragraph">Clerk </p>
+              <%= radio_button_tag("role", "owner", checked=false ) %>
+                <p class="UserNewForm-paragraph">Owner </p>
+          </div>
+        </div>
+        <div class="NewUserName-div">
+          <p class="UserNewForm-paragraph">Email:</p>
+          <%= email_field_tag :email, nil, placeholder: "xyz@xyz.com", class: "UserNewForm-input" %>
+        </div>
+        <div class="NewUserName-div">
+          <p class="UserNewForn-paragraph">Password:</p>
+          <%= password_field_tag :password, nil, class: "UserNewForm-input" %>
+        </div>
+        <%= button_tag "Add", class: "UserNewForm-submitbutton" %>
+      <% end %>
+    </div>
+
+  <div>
+  <hr>
+  <p class = "HomeMenu-title">Registered Users as on date</p>
+  <hr>
+    <ul class="MenuUl-list">
+      <% @users.each do |user| %>
+        <div class="UserList-div">
+        <li class="MenuItems-list">
+          <label class="MenuItems-container">
+            <%= form_with(url: "/users/#{user.id}", method: "GET") do %>
+                      <%= check_box_tag("selected", nil, false, :class=>"DueItem-checkbox",
+                                       #  :onclick=>"this.form.submit()"
+                                        )
+                      %>
+                    <% end %>
+                    <p class= <%= (user.role == "owner")? "BoldUser-text" : "" %> >
+                        <%= user.name %>
+                    </p>
+                    <p class="UserItem"> <%= user.role %> </p>
+                    <p class="UserItem-delete" >
+                      <a href="javascript:void(0)" >
+                        <%= form_with(url: "/users/#{user.id}", method: "DELETE") do %>
+                          <%= button_tag("Delete", :class=>"UserItem-delete" ) %>
+                        <% end%>
+                      </a>
+                    </p>
+                    <p class="UserItem-update" >
+                      <a href="javascript:void(0)" >
+                        <%= form_with(url: "/users/#{user.id}", method: "GET") do %>
+                          <%= button_tag("Update", :class=>"UserItem-update" ) %>
+                        <% end%>
+                      </a>
+                    </p>
+          </label>
+        </li>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+</section>

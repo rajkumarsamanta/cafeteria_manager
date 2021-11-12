@@ -9,19 +9,16 @@
       <p class="SessionNewForm-paragraph">
         Email
       </p>
-      <%= form.email_field :email, class: "SessionNewForm-div", autofocus: true %>
+      <%= form.email_field :email, class: "SessionNewForm-email", autofocus: true %>
     </div>
     <div class="SessionNewForm-div">
       <p class="SessionNewForm-paragraph">
         Password
       </p>
-      <%= form.password_field :password, class: "SessionNewForm-div" %>
+      <%= form.password_field :password, class: "SessionNewForm-password" %>
     </div>
     <div class="SessionNewForm-div">
       <%= form.submit "Sign-in", class: "SessionNew-submitButton" %>
     </div>
   <% end %>
 </section>
-<p class="SessionNewUser-signup">
-  If you are a new user, <%= link_to "sign up here", new_user_path %>
-</p>

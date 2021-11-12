@@ -1,5 +1,18 @@
-<p class = "HomeTitle">You are in Cafe Raj's domain of Mouth-watering Delicacies</p>
 
-<p class="Home-authenticate">
-  If you are a new user, <%= link_to "sign up here", new_user_path %>
-</p>
+<p class = "HomeTitle">You are in Cafe Raj's domain of Mouth-watering Delicacies</p>
+<section class="MenuSection">
+  <div>
+  <hr>
+  <p class = "HomeMenu-title">Currently active Menu Category</p>
+  <hr>
+    <ul class="MenuUl-list">
+      <% @menu_categories.each do |menu| %>
+        <li class="MenuItems-list">
+          <label class="MenuItems-container">
+            <p class="MenuItems"> <%= menu.name %> </p>
+          </label>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
