@@ -1,0 +1,27 @@
+  <% if session[:current_user] && session[:current_role] = "owner" %>
+    <p class = "UserNew-title">Update menu item</p>
+    <div class="AddUser-div">
+
+          <div class="AddUser-div">
+            <%= form_with(url: "/menu_items/#{session[:selected_menu_item_id]}", method: "PATCH", class: "AddUser") do %>
+              <div class="NewUserName-div">
+                <p class="AddUser-title">Item :</p>
+
+                <%= text_field_tag 'menu_item_name', MenuItem.menu_item(session[:selected_menu_item_id]).name,
+                                placeholder: 'Item name...', class: "UserNewForm-input"
+                %>
+                <%= text_field_tag 'menu_item_description', MenuItem.menu_item(session[:selected_menu_item_id]).description,
+                                    placeholder: 'Description...', class: "UserNewForm-input"
+                %>
+                <%= text_field_tag 'menu_item_price', MenuItem.menu_item(session[:selected_menu_item_id]).price,
+                                    placeholder: 'Price', class: "UserNewForm-input"
+                %>
+              </div>
+              <%= button_tag "Update", class: "UserNewForm-submitbutton" %>
+            <% end %>
+          </div>
+
+    </div>
+  <% else %>
+    <p class="ChangePassword-title">You are not logged in. </p>
+  <% end %>

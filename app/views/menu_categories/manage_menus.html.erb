@@ -1,0 +1,140 @@
+<section class="MenuSection">
+  <% if session[:current_role] == "owner" %>
+    <div class="AddUser-div">
+        <div class="AddUser-div">
+          <%= form_with(url: "/menu_categories", method: "POST", class: "AddUser") do %>
+            <div class="NewUserName-div">
+              <p class="AddUser-title">Menu Category :</p>
+              <%= text_field_tag 'menu_category_name', nil, placeholder: 'Menu category name...',
+                                  class: "UserNewForm-input", autofocus: true
+              %>
+            </div>
+            <%= button_tag "Add", class: "UserNewForm-submitbutton" %>
+          <% end %>
+        </div>
+    </div>
+    <div>
+    <hr>
+    <% if !MenuCategory.all.empty? %>
+    <p class = "Menu-title">Active Manu </p>
+    <div class="MenuCategory-div">
+    <ul class="MenuUl-list">
+      <% MenuCategory.all.each do |menu| %>
+        <div class="UserList-div">
+        <li class="MenuItems-list">
+          <label class="MenuItems-container">
+            <%= form_with(url: "/menu_categories/#{menu.id}", method: "GET") do %>
+                      <%= check_box_tag("menu_selected", nil,
+                        if session[:menu_update]
+                          false
+                        else
+                          menu.selected?(session[:selected_menu_category_id].to_i)
+                        end,
+                        :class=>"DueItem-checkbox", :onclick=>"this.form.submit()"
+                                        )
+                      %>
+                    <% end %>
+                    <% if menu.active %>
+                      <p class="BoldUser-text">
+                    <% else %>
+                      <p class="InactiveMenu-text">
+                    <% end %>
+                        <%= menu.name %>
+                    </p>
+                    <% if session[:menu_update] %>
+                      <p class="UserItem-update" >
+                        <a href="javascript:void(0)" >
+                          <%= form_with(url: "/menu_categories/#{menu.id}/edit", method: "GET") do %>
+                            <%= button_tag("Update", :class=>"UserItem-update" ) %>
+                          <% end%>
+                        </a>
+                      </p>
+                    <% else %>
+                      <p class="UserItem-update" >
+                        <a href="javascript:void(0)" >
+                          <%= form_with(url: "/menu_categories/#{menu.id}", method: "PATCH") do %>
+                            <%= button_tag("On/Off", :class=>"UserItem-update" ) %>
+                          <% end%>
+                        </a>
+                      </p>
+                    <% end %>
+                    <p class="UserItem-update" >
+                        <a href="javascript:void(0)" >
+                          <%= form_with(url: "/menu_categories/#{menu.id}/add_item", method: "GET") do %>
+                            <%= button_tag("Add-Item", :class=>"UserItem-update" ) %>
+                          <% end%>
+                        </a>
+                    </p>
+          </label>
+        </li>
+        </div>
+        <% if menu.active %>
+          <% if (menu.selected?(session[:selected_menu_category_id].to_i) && (MenuItem.exist?(session[:selected_menu_category_id].to_i))) %>
+            <p class = "Menu-title">Items. </p>
+            <div class="ItemHeading-div">
+              <p class="ItemHeading-text">Name </p>
+              <p class="ItemHeading-text">Description </p>
+              <p class="ItemHeading-text">Rate (Rs) </p>
+            </div>
+            <div class="MenuItems-div">
+              <ul class="MenuUl-list">
+                <% MenuItem.of_category(session[:selected_menu_category_id].to_i).each do |item| %>
+                  <div class="UserList-div">
+                    <li class="MenuItems-list">
+                      <label class="MenuItems-container">
+                        <%= form_with(url: "/menu_items/#{item.id}", method: "GET") do %>
+                          <%= check_box_tag("menu_item_selected", nil,
+                                      item.selected?(session[:selected_menu_item_id].to_i),
+                                      :class=>"DueItem-checkbox",
+                                      :onclick=>"this.form.submit()"
+                                                  )
+                          %>
+                        <% end %>
+                        <% if item.active %>
+                          <p class="BoldUser-text">
+                        <% else %>
+                          <p class="InactiveMenu-text">
+                        <% end %>
+                          <%= item.name %>
+                        </p>
+                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <%= item.description %>
+                        </p>
+                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <%= item.price %>
+                        </p>
+                        <p class="UserItem-delete" >
+                                <a href="javascript:void(0)" >
+                                  <%= form_with(url: "/menu_items/#{item.id}", method: "DELETE") do %>
+                                    <%= button_tag("Delete", :class=>"UserItem-delete" ) %>
+                                  <% end%>
+                                </a>
+                        </p>
+                        <p class="UserItem-update" >
+                                <a href="javascript:void(0)" >
+                                  <%= form_with(url: "/menu_items/#{item.id}/edit", method: "GET") do %>
+                                    <%= button_tag("Update", :class=>"UserItem-update" ) %>
+                                  <% end%>
+                                </a>
+                        </p>
+                        <p class="UserItem-update" >
+                          <a href="javascript:void(0)" >
+                            <%= form_with(url: "/menu_items/#{item.id}/flip_status", method: "GET") do %>
+                              <%= button_tag("On/Off", :class=>"UserItem-update" ) %>
+                            <% end%>
+                          </a>
+                        </p>
+                      </label>
+                    </li>
+                  </div>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+    </div>
+    <% end %>
+  <% end %>
+</section>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cafe Raj's Manager App</title>
+    <title>Cafe Reedhi's Manager App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -19,7 +19,7 @@
       <% if session[:current_user] %>
         <% if session[:current_role] == "owner" %>
           <p class="HomeHeader-title"> <%= link_to "Manage Users", manage_users_path %> </p>
-          <p class="HomeHeader-title"> Manage Menu</p>
+          <p class="HomeHeader-title"> <%= link_to "Manage Menu", menu_categories_path %></p>
         <% else %>
           <p class="HomeHeader-title">
             <%= link_to "Change Password", "/changepassword", method: "GET" %>
@@ -29,10 +29,10 @@
     </div>
     <div class="HomeHeader-div">
         <p class="HomeHeader-message">Hello <%= session[:current_user] %>
-            ! Welcome Cafe Raj's Services. you are: <%= session[:current_role] %>
+            ! Welcome Cafe Reedhi's Services. you are: <%= session[:current_role] %>
         </p>
       <% else %>
-        <p class="HomeHeader-message">Hello Friend ! Welcome to Cafe Raj's Services.
+        <p class="HomeHeader-message">Hello Friend ! Welcome to Cafe Reedhi's Services.
               Please <%= link_to "Sign-in", new_sessions_path, method: "get" %>
               to help us serve you better.
         </p>
@@ -45,7 +45,7 @@
     <%= yield %>
     <h3 style="background-color:lightgreen;color:blue;
                 text-align:center;margin-top:10px;">
-        Copy-right@rks durgapur
+        Copy-right@reedhi durgapur
     </h3>
   </body>
 </html>

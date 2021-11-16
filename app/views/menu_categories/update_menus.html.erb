@@ -1,0 +1,20 @@
+  <% if session[:current_user] && session[:current_role] = "owner" %>
+    <p class = "UserNew-title">Menu Update</p>
+    <div class="AddUser-div">
+
+        <div class="AddUser-div">
+          <%= form_with(url: "/menu_categories/#{session[:selected_menu_category_id]}", method: "PATCH", class: "AddUser") do %>
+            <div class="NewUserName-div">
+              <p class="AddUser-title">Menu Category :</p>
+              <%= text_field_tag 'menu_category_name', MenuCategory.menu_name(session[:selected_menu_category_id]),
+                                  placeholder: 'Menu category name...',
+                                  class: "UserNewForm-input", autofocus: true
+              %>
+            </div>
+            <%= button_tag "Update", class: "UserNewForm-submitbutton" %>
+          <% end %>
+        </div>
+    </div>
+  <% else %>
+    <p class="ChangePassword-title">You are not logged in. </p>
+  <% end %>

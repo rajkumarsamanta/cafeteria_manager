@@ -1,0 +1,29 @@
+  <% if session[:current_user] && session[:current_role] = "owner" %>
+    <p class = "UserNew-title">Add menu item</p>
+    <div class="AddUser-div">
+
+          <div class="AddUser-div">
+            <%= form_with(url: "/menu_items", method: "POST", class: "AddUser") do %>
+              <div class="NewUserName-div">
+                <p class="AddUser-title">Name:</p>
+
+                <%= text_field_tag 'menu_item_name', nil,
+                                placeholder: 'Item name...', class: "UserNewForm-input"
+                %>
+                <p class="AddUser-title">Description:</p>
+                <%= text_field_tag 'menu_item_description', nil,
+                                    placeholder: 'Description...', class: "UserNewForm-input"
+                %>
+                <p class="AddUser-title">Price:</p>
+                <%= text_field_tag 'menu_item_price', nil,
+                                    placeholder: 'Price', class: "UserNewForm-input"
+                %>
+              </div>
+              <%= button_tag "Add", class: "UserNewForm-submitbutton" %>
+            <% end %>
+          </div>
+
+    </div>
+  <% else %>
+    <p class="ChangePassword-title">You are not logged in. </p>
+  <% end %>
