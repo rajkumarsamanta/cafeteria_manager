@@ -19,32 +19,34 @@
       <% if @current_user %>
         <% if @current_user.role == "owner" %>
           <p class="HomeHeader-title"> <%= link_to "Manage Users", manage_users_path %> </p>
-          <p class="HomeHeader-title"> <%= link_to "Manage Menu", menu_categories_path %></p>
+          <p class="HomeHeader-title"> <%= link_to "Manage Menus", menu_categories_path %></p>
         <% else %>
           <p class="HomeHeader-title">
             <%= link_to "Change Password", "/changepassword", method: "GET" %>
           </p>
         <% end %>
         <div class="HomeBanner-div">
-        <% if Order.of_user(@current_user.id) %>
-            <p> <%= @current_user.name %>(<%= @current_user.role %>):
-              <% if @current_user.role != "customer" %>
-                <%= link_to Order.all.count, orders_path, method: "GET" %>
-              <% else %>
-                <%= link_to Order.order_count(@current_user.id), orders_path, method: "GET" %>
-              <% end %>
-              Orders: Pending
-        <% end %>
-        <% if Order.of_user(@current_user.id) %>
+          <p> <%= @current_user.name %>(<%= @current_user.role %>):
+           <% user_orders = Order.of_user(@current_user.id)%>
           <% if @current_user.role != "customer" %>
-                <%= link_to Order.pending, orders_path, method: "GET" %>
+              <%= link_to Order.all.count, orders_path, method: "GET" %>
           <% else %>
-            <%= link_to (Order.pending_of_user(@current_user.id)), orders_path, method: "GET" %> </p>
+            <% if !user_orders.empty? %>
+                <%= link_to user_orders.order_count(@current_user.id), orders_path, method: "GET" %>
+            <% end %>
           <% end %>
-        <% end %>
-        <% if Cart.of_user(@current_user.id) %>
-          <% if CartItem.of_cart_id(Cart.of_user(@current_user.id).id).count != 0 %>
-              <p> / Cart Items: <%= link_to CartItem.of_cart_id(Cart.of_user(@current_user.id).id).count, orders_path, method: "GET" %> </p>
+          Orders: Pending
+          <% if @current_user.role != "customer" %>
+            <%= link_to Order.pending, orders_path, method: "GET" %>
+          <% else %>
+            <%# if !user_orders.empty?) %>
+              <%= link_to (Order.pending_of_user(@current_user.id)), orders_path, method: "GET" %> </p>
+            <%# end %>
+          <% end %>
+          <% user_cart = Cart.of_user(@current_user.id) %>
+        <% if user_cart %>
+          <% if CartItem.of_cart_id(user_cart.id).count != 0 %>
+              <p> / Cart Items: <%= link_to CartItem.of_cart_id(user_cart.id).count, orders_path, method: "GET" %> </p>
           <% end %>
         <% end %>
         </div>

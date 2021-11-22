@@ -28,9 +28,10 @@
 </section>
 <section class="MenuSection">
   <% if @current_user %>
-
+<p> From: <%= session[:date_from] %>, To: <%= session[:date_to] %>, Customer:<%= !session[:customer] %> </p>
 <%  if (session[:date_from] != "") && (session[:date_to] != "") && (session[:customer] != "") %>
-   <%  orders = Order.of_user_name(session[:customer]).of_days(session[:date_from],session[:date_to]) %>
+  <%# orders = Order.all %>
+  <%  orders = Order.of_user_name(session[:customer]).of_days(session[:date_from],session[:date_to]) %>
 <% else %>
   <% if (session[:date_from] != "") && (session[:date_to] != "") && (session[:customer] == "") %>
     <%  orders = Order.of_days(session[:date_from],session[:date_to]) %>

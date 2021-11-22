@@ -13,16 +13,19 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:current_user_id] = user.id
-      # session[:current_user] = user.name
-      # session[:current_role] = user.role
+      session[:current_user] = user.name
+      session[:current_role] = user.role
 
-      # session[:selected_menu_category_id] = nil
-      # session[:selected_menu_item_id] = nil
-      # session[:selected_order_id] = nil
-      # session[:selected_order_item_id] = nil
-      # session[:selected_cart_id] = nil
-      # session[:selected_cart_item_id] = nil
-      #redirect_to users_path
+      session[:selected_menu_category_id] = nil
+      session[:selected_menu_item_id] = nil
+      session[:selected_order_id] = nil
+      session[:selected_order_item_id] = nil
+      session[:selected_cart_id] = nil
+      session[:selected_cart_item_id] = nil
+      session[:date_from] = ""
+      session[:date_to] = ""
+      session[:customer] = ""
+      # redirect_to users_path
       redirect_to "/"
     else
       flash[:error] = "Invalid login credentials. Please try again.."
