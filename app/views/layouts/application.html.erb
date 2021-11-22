@@ -16,8 +16,8 @@
           <%= link_to "Home", "/", method: "GET" %>
       </p>
 
-      <% if session[:current_user] %>
-        <% if session[:current_role] == "owner" %>
+      <% if @current_user %>
+        <% if @current_user.role == "owner" %>
           <p class="HomeHeader-title"> <%= link_to "Manage Users", manage_users_path %> </p>
           <p class="HomeHeader-title"> <%= link_to "Manage Menu", menu_categories_path %></p>
         <% else %>
@@ -25,12 +25,33 @@
             <%= link_to "Change Password", "/changepassword", method: "GET" %>
           </p>
         <% end %>
-        <p> <%= link_to "Sign-out", destroy_session_path, method: "delete" %> </p>
+        <div class="HomeBanner-div">
+        <% if Order.of_user(@current_user.id) %>
+            <p> <%= @current_user.name %>(<%= @current_user.role %>):
+              <% if @current_user.role != "customer" %>
+                <%= link_to Order.all.count, orders_path, method: "GET" %>
+              <% else %>
+                <%= link_to Order.order_count(@current_user.id), orders_path, method: "GET" %>
+              <% end %>
+              Orders: Pending
+        <% end %>
+        <% if Order.of_user(@current_user.id) %>
+          <% if @current_user.role != "customer" %>
+                <%= link_to Order.pending, orders_path, method: "GET" %>
+          <% else %>
+            <%= link_to (Order.pending_of_user(@current_user.id)), orders_path, method: "GET" %> </p>
+          <% end %>
+        <% end %>
+        <% if Cart.of_user(@current_user.id) %>
+          <% if CartItem.of_cart_id(Cart.of_user(@current_user.id).id).count != 0 %>
+              <p> / Cart Items: <%= link_to CartItem.of_cart_id(Cart.of_user(@current_user.id).id).count, orders_path, method: "GET" %> </p>
+          <% end %>
+        <% end %>
+        </div>
+          <p> <%= link_to "Sign-out", destroy_session_path, method: "delete" %> </p>
     </div>
     <div class="HomeHeader-div">
-        <p class="HomeHeader-message">Hello <%= session[:current_user] %>
-            ! Welcome Cafe Reedhi's Services. you are: <%= session[:current_role] %>
-        </p>
+        <p class="HomeHeader-message"> Welcome Cafe to Reedhi's Services. </p>
       <% else %>
         <p class="HomeHeader-message">Hello Friend ! Welcome to Cafe Reedhi's Services.
               Please <%= link_to "Sign-in", new_sessions_path, method: "get" %>
@@ -43,9 +64,11 @@
         <%= flash[:error] %>
     </p>
     <%= yield %>
+    <div>
     <h3 style="background-color:lightgreen;color:blue;
                 text-align:center;margin-top:10px;">
         Copy-right@reedhi durgapur
     </h3>
+    </div>
   </body>
 </html>

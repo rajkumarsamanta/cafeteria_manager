@@ -1,5 +1,6 @@
 <section class="MenuSection">
-  <% if session[:current_role] == "owner" %>
+<% if @current_user %>
+  <% if @current_user.role == "owner" %>
     <div class="AddUser-div">
       <%= form_with(url: "/users", method: "POST", class: "AddUser") do %>
       <div class="NewUserName-div">
@@ -69,4 +70,5 @@
     </ul>
   </div>
   <% end %>
+<% end %>
 </section>

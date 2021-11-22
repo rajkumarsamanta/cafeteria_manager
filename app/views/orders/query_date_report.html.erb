@@ -1,0 +1,114 @@
+<section class="ReportCondition-section">
+  <% if @current_user && @current_user.role == "owner" %>
+    <p class = "UserNew-title">Display Report for:</p>
+    <div class="AddUser-div">
+      <div class="AddUser-div">
+        <%= form_with(url: "/orders/new", method: "GET", class: "AddUser") do %>
+          <div class="NewUserName-div">
+            <p class="AddUser-title">Date From :</p>
+            <%= date_field_tag 'date_from', nil, placeholder: "dd/mm/yyyy",
+                              class: "OrderDate-form", autofocus: true
+            %>
+            <p class="AddUser-title"> To :</p>
+            <%= date_field_tag 'date_to', nil, placeholder: "dd/mm/yyyy",
+                              class: "OrderDate-to"
+            %>
+            <p class="AddUser-title"> Customer :</p>
+            <%= text_field_tag 'customer', nil,
+                                placeholder: 'Customer name', class: "Order-customer"
+            %>
+          </div>
+          <%= button_tag "Find", class: "UserNewForm-submitbutton" %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <p class="ChangePassword-title">You are not logged in. </p>
+  <% end %>
+</section>
+<section class="MenuSection">
+  <% if @current_user %>
+    <p> From <%= session[:date_from] %> , To <%= session[:date_to] %> </p>
+  <div>
+    <hr>
+    <% orders = Order.of_days(session[:date_from],session[:date_to]) %>
+
+    <% if orders %>
+      <p class = "Menu-title"> Orders </p>
+      <div class="MenuCategory-div">
+      <ul class="MenuUl-list">
+        <% order_amount = 0 %>
+        <% orders.each do |order| %>
+          <div class="OrderList-div">
+            <%= form_with(url: "/order_items/#{order.id}/edit", method: "GET") do %>
+                <%= check_box_tag("order_selected", nil,
+                  order.delivered?,
+                    :class=>"DueItem-checkbox", :onclick=>"this.form.submit()"
+                                )
+                %>
+            <% end %>
+          <li class="MenuItems-list">
+            <label class="MenuItems-container">
+
+              <p class= <%= order.delivered? ? "InactiveMenu-text" : "BoldUser-text" %> >
+                <a href="javascript:void(0)" >
+                  <%= link_to "OrderID: #{ order.id } , Customer: #{order.customer},
+                      Amount: #{order.amount} ",
+                  "/order_items/#{order.id}", method: "get" %>
+                </a>
+              </p>
+              <p class= <%= order.delivered? ? "InactiveMenu-text" : "BoldUser-text" %> >
+                <% if order.delivered? %>
+                  Delivered on: <%= order.delivered_at %>
+                <% else %>
+                  Pending
+                <% end %>
+              </p>
+            </label>
+          </li>
+          </div>
+          <% if order %>
+            <% if (order.selected?(session[:selected_order_id].to_i) && (OrderItem.exist?(session[:selected_order_id].to_i))) %>
+              <p class = "Menu-title">Items. </p>
+              <div class="ItemHeading-div">
+                <p class="ItemHeading-text">Name </p>
+                <p class="ItemHeading-text">Rate </p>
+                <p class="ItemHeading-text">Quantity </p>
+                <p class="ItemHeading-text">Amount </p>
+              </div>
+              <div class="MenuItems-div">
+                <ul class="MenuUl-list">
+                  <% OrderItem.of_order(session[:selected_order_id].to_i).each do |item| %>
+                    <div class="UserList-div">
+                      <li class="MenuItems-list">
+                        <label class="MenuItems-container">
+                          <% if @current_user.role == "owner"%>
+                            <%= form_with(url: "/menu_items/#{item.id}", method: "GET") do %>
+                              <%= check_box_tag("menu_item_selected", nil,
+                                          item.selected?(session[:selected_order_item_id].to_i),
+                                          :class=>"DueItem-checkbox",
+                                          :onclick=>"this.form.submit()"
+                                                      )
+                              %>
+                            <% end %>
+                          <% end %>
+                          <p class="BoldUser-text" > <%= item.menu_item_name %> </p>
+                          <p class="BoldUser-text" > <%= item.menu_item_price %> </p>
+                          <p class="BoldUser-text" > <%= item.quantity %> </p>
+                          <p class="BoldUser-text" > <%= item.menu_item_price*item.quantity %> </p>
+                        </label>
+                      </li>
+                    </div>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+      </div>
+    <% end %>
+
+    </div>
+  <% end %>
+</section>

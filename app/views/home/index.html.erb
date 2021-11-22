@@ -1,18 +1,69 @@
-
 <p class = "HomeTitle">You are in Cafe Reedhi's domain of Mouth-watering Delicacies</p>
 <section class="MenuSection">
   <div>
-  <hr>
-  <p class = "HomeMenu-title">Currently active Menu Category</p>
-  <hr>
+    <hr>
+  <% if !MenuCategory.all.empty? %>
+    <p class = "Menu-title">Active Manu </p>
+    <div class="MenuCategory-div">
     <ul class="MenuUl-list">
-      <% @menu_categories.each do |menu| %>
+      <% MenuCategory.all.each do |menu| %>
+        <div class="UserList-div">
         <li class="MenuItems-list">
           <label class="MenuItems-container">
-            <p class="MenuItems"> <%= menu.name %> </p>
+            <%= form_with(url: "/menu_categories/#{menu.id}", method: "GET") do %>
+                      <%= check_box_tag("menu_selected", nil,
+                        if session[:menu_update]
+                          false
+                        else
+                          menu.selected?(session[:selected_menu_category_id].to_i)
+                        end,
+                        :class=>"DueItem-checkbox", :onclick=>"this.form.submit()"
+                                        )
+                      %>
+                    <% end %>
+                    <% if menu.active %>
+                      <p class="BoldUser-text">
+                    <% else %>
+                      <p class="InactiveMenu-text">
+                    <% end %>
+                        <%= menu.name %>
+                    </p>
           </label>
         </li>
+        </div>
+        <% if menu.active %>
+          <% if (menu.selected?(session[:selected_menu_category_id].to_i) && (MenuItem.exist?(session[:selected_menu_category_id].to_i))) %>
+            <p class = "Menu-title">Items. </p>
+            <div class="ItemHeading-div">
+              <p class="ItemHeading-text">Name </p>
+              <p class="ItemHeading-text">Description </p>
+              <p class="ItemHeading-text">Rate (Rs) </p>
+            </div>
+            <div class="MenuItems-div">
+              <ul class="MenuUl-list">
+                <% MenuItem.of_category(session[:selected_menu_category_id].to_i).each do |item| %>
+                  <div class="UserList-div">
+                    <li class="MenuItems-list">
+                      <label class="MenuItems-container">
+                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <%= item.name %>
+                        </p>
+                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <%= item.description %>
+                        </p>
+                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <%= item.price %>
+                        </p>
+                      </label>
+                    </li>
+                  </div>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        <% end %>
       <% end %>
     </ul>
-  </div>
+    </div>
+  <% end %>
 </section>

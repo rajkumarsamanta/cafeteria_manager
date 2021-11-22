@@ -6,10 +6,17 @@ Rails.application.routes.draw do
 
   get "menu_categories/:id/add_item" => "menu_categories#add_item", as: :add_item
   get "menu_items/:id/flip_status" => "menu_items#flip_status", as: :flip_status
+
+  get "cart_items/:id/plus" => "cart_items#plus", as: :plus
+  get "cart_items/:id/minus" => "cart_items#minus", as: :minus
+
+  get "orders/:id/edit" => "orders#edit", as: :edit
+
   #get "/updatemenus" => "menu_categories#update_menus", as: :update_menus
   get "/managemenus" => "menu_categories#manage_menus", as: :manage_menus
 
   resources :users, :orders, :order_items, :menu_categories, :menu_items
+  resources :carts, :cart_items
 
   get "/signin" => "sessions#new", as: :new_sessions
   post "/signin" => "sessions#create", as: :sessions

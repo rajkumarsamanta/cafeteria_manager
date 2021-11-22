@@ -1,4 +1,4 @@
-  <% if session[:current_user] && session[:current_role] = "owner" %>
+  <% if @current_user && @current_user.role == "owner" %>
     <p class = "UserNew-title">Update menu item</p>
     <div class="AddUser-div">
 
@@ -8,7 +8,8 @@
                 <p class="AddUser-title">Item :</p>
 
                 <%= text_field_tag 'menu_item_name', MenuItem.menu_item(session[:selected_menu_item_id]).name,
-                                placeholder: 'Item name...', class: "UserNewForm-input"
+                                placeholder: 'Item name...', class: "UserNewForm-input",
+                                autofocus: true
                 %>
                 <%= text_field_tag 'menu_item_description', MenuItem.menu_item(session[:selected_menu_item_id]).description,
                                     placeholder: 'Description...', class: "UserNewForm-input"

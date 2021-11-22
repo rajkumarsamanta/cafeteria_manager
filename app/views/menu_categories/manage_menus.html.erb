@@ -1,5 +1,5 @@
 <section class="MenuSection">
-  <% if session[:current_role] == "owner" %>
+  <% if @current_user.role == "owner" %>
     <div class="AddUser-div">
         <div class="AddUser-div">
           <%= form_with(url: "/menu_categories", method: "POST", class: "AddUser") do %>
@@ -90,11 +90,7 @@
                                                   )
                           %>
                         <% end %>
-                        <% if item.active %>
-                          <p class="BoldUser-text">
-                        <% else %>
-                          <p class="InactiveMenu-text">
-                        <% end %>
+                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
                           <%= item.name %>
                         </p>
                         <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >

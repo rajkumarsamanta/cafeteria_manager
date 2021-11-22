@@ -1,94 +1,79 @@
 <section class="MenuSection">
-  <% if @current_user %>
+  <% if @current_user && @current_user.role == "customer"  %>
   <div>
     <hr>
-    <% if Cart.of_user(@current_user.id) && @current_user.role != "owner" %>
-      <table>
-        <tr> <td>
+    <% if Cart.of_user(@current_user.id) %>
+      <% if (CartItem.of_cart_id(Cart.of_user(@current_user.id).id).count != 0) %>
+        <table>
+          <tr> <td>
+      <% end %>
     <% end %>
-
-      <% if !MenuCategory.all.empty? %>
-      <p class = "Menu-title">Active Manu </p>
+    <% if !Order.of_user(@current_user.id).all.empty? %>
+      <p class = "Menu-title">Your Orders </p>
       <div class="MenuCategory-div">
       <ul class="MenuUl-list">
-        <% MenuCategory.all.each do |menu| %>
-          <div class="UserList-div">
+        <% order_amount = 0 %>
+        <% Order.of_user(@current_user.id).all.each do |order| %>
+          <div class="OrderList-div">
+
           <li class="MenuItems-list">
             <label class="MenuItems-container">
-              <%= form_with(url: "/menu_categories/#{menu.id}", method: "GET") do %>
-                <%= check_box_tag("menu_selected", nil,
-                  if session[:menu_update]
-                    false
-                  else
-                    menu.selected?(session[:selected_menu_category_id].to_i)
-                  end,
-                    :class=>"DueItem-checkbox", :onclick=>"this.form.submit()"
-                                )
-                %>
-              <% end %>
-              <p class= <%= menu.active ? "BoldUser-text" : "InactiveMenu-text" %> >
-                <%= menu.name %>
+
+              <p class= <%= order.delivered? ? "InactiveMenu-text" : "BoldUser-text" %> >
+                <a href="javascript:void(0)" >
+                  <%= link_to "OrderID: #{ order.id } ,  Amount: #{order.amount} ",
+                  "/order_items/#{order.id}", method: "get" %>
+                </a>
+              </p>
+              <p class= <%= order.delivered? ? "InactiveMenu-text" : "BoldUser-text" %> >
+                <% if order.delivered? %>
+                  Delivered on: <%= order.delivered_at %>
+                <% else %>
+                  Pending
+                <% end %>
               </p>
             </label>
           </li>
           </div>
-          <% if menu.active %>
-            <% if (menu.selected?(session[:selected_menu_category_id].to_i) && (MenuItem.exist?(session[:selected_menu_category_id].to_i))) %>
+          <% if order %>
+            <% if (order.selected?(session[:selected_order_id].to_i) && (OrderItem.exist?(session[:selected_order_id].to_i))) %>
               <p class = "Menu-title">Items. </p>
               <div class="ItemHeading-div">
                 <p class="ItemHeading-text">Name </p>
-                <p class="ItemHeading-text">Description </p>
-                <p class="ItemHeading-text">Rate (Rs) </p>
+                <p class="ItemHeading-text">Rate </p>
+                <p class="ItemHeading-text">Quantity </p>
+                <p class="ItemHeading-text">Amount </p>
               </div>
               <div class="MenuItems-div">
+                <% order_total = 0 %>
                 <ul class="MenuUl-list">
-                  <% MenuItem.of_category(session[:selected_menu_category_id].to_i).each do |item| %>
+                  <% OrderItem.of_order(session[:selected_order_id].to_i).each do |item| %>
                     <div class="UserList-div">
                       <li class="MenuItems-list">
                         <label class="MenuItems-container">
-                          <% if @current_user.role == "owner"%>
-                            <%= form_with(url: "/menu_items/#{item.id}", method: "GET") do %>
-                              <%= check_box_tag("menu_item_selected", nil,
-                                          item.selected?(session[:selected_menu_item_id].to_i),
-                                          :class=>"DueItem-checkbox",
-                                          :onclick=>"this.form.submit()"
-                                                      )
-                              %>
-                            <% end %>
-                          <% end %>
-                          <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
-                            <%= item.name %>
-                          </p>
-                          <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
-                            <%= item.description %>
-                          </p>
-                          <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
-                            <%= item.price %>
-                          </p>
-                          <% if @current_user.role != "owner"%>
-                            <% if item.active %>
-                              <p class="UserItem-update" >
-                                <a href="javascript:void(0)" >
-                                  <%= form_with(url: "/carts/#{item.id}/edit", method: "GET") do %>
-                                    <%= button_tag("Add to Cart", :class=>"UserItem-update" ) %>
-                                  <% end%>
-                                </a>
-                              </p>
-                            <% end %>
-                          <% end %>
+
+                          <p class="BoldUser-text" > <%= item.menu_item_name %> </p>
+                          <p class="BoldUser-text" > <%= item.menu_item_price %> </p>
+                          <p class="BoldUser-text" > <%= item.quantity %> </p>
+                          <p class="BoldUser-text" > <%= item.menu_item_price*item.quantity %> </p>
                         </label>
                       </li>
+                      <% order_total += item.menu_item_price*item.quantity %>
                     </div>
                   <% end %>
+                  <p class= "BoldUser-text" > Total:
+                    <%= order_total %>
+                  </p>
                 </ul>
               </div>
             <% end %>
           <% end %>
         <% end %>
       </ul>
+
       </div>
       <% end %>
-    <% if Cart.of_user(@current_user.id) && @current_user.role != "owner" %>
+    <% if Cart.of_user(@current_user.id) && @current_user.role == "customer" %>
       </td>
       <td>
       <p class = "Menu-title">Items in Cart </p>

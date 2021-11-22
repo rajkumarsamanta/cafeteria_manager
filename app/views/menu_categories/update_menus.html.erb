@@ -1,4 +1,4 @@
-  <% if session[:current_user] && session[:current_role] = "owner" %>
+  <% if @current_user && @current_user.role == "owner" %>
     <p class = "UserNew-title">Menu Update</p>
     <div class="AddUser-div">
 
