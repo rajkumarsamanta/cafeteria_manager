@@ -1,0 +1,28 @@
+<% if @current_user && @current_user.role == "owner"  %>
+    <p class = "UserNew-title">Update User </p>
+    <div class="AddUser-div">
+      <div class="NewUserName-div">
+        <p class="AddUser-title"> User Name : <%= session[:selected_user] %> </p>
+      </div>
+        <% if session[:update_user] %>
+          <%= form_with(url: "/users/#{session[:selected_id]}/edit", method: "GET", class: "AddUser") do %>
+            <div class="NewUserRole-div">
+              <p class="UserNewForm-paragraph">Role: <%= "#{session[:selected_role]}" %> </p>
+              <div class="NewUserName-div">
+                  <%= radio_button_tag("role", "clerk", checked= true )  %>
+                    <p class="UserNewForm-paragraph">Clerk </p>
+                  <%= radio_button_tag("role", "owner", checked=false ) %>
+                    <p class="UserNewForm-paragraph">Owner </p>
+              </div>
+            </div>
+            <div class="NewUserRole-div">
+              <p class="UserNewForm-paragraph">Current Password</p>
+                <%= password_field_tag :current_password, nil, class: "UserNewForm-input", autofocus: true %>
+            </div>
+            <%= button_tag "Change Role", class: "UserNewForm-submitbutton" %>
+          <% end %>
+        <% end %>
+      </div>
+<% else %>
+  <p class="ChangePassword-title">You are not logged in. Password page</p>
+<% end %>

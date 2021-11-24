@@ -34,20 +34,24 @@ class CartItemsController < ApplicationController
       if current_user.role != "owner"
         id = params[:id]
         cart = Cart.of_user(current_user.id)
-        if CartItem.of_cart_id(cart.id)
-          cart_item = CartItem.of_cart_id(cart.id).find(id)
+        cart_items = CartItem.of_cart_id(cart.id)
+        if cart_items
+          cart_item = cart_items.find(id)
           if cart_item
             if cart_item.quantity > 0
               cart_item.quantity = cart_item.quantity - 1
             end
+            if cart_item.quantity == 0
+              cart_item.destroy
+            else
+              cart_item.save
+            end
           end
         end
-        if cart_item.save
-          redirect_to users_path
-        else
-          flash[:error] = cart_item.errors.full_messages.join(", ")
-          redirect_to users_path
+        if cart_items.empty?
+          cart.destroy
         end
+        redirect_to users_path
       else
         flash[:error] = "Unauthorized access.."
         redirect_to "/"

@@ -28,7 +28,6 @@
 </section>
 <section class="MenuSection">
   <% if @current_user %>
-<p> From: <%= session[:date_from] %>, To: <%= session[:date_to] %>, Customer:<%= !session[:customer] %> </p>
 <%  if (session[:date_from] != "") && (session[:date_to] != "") && (session[:customer] != "") %>
   <%# orders = Order.all %>
   <%  orders = Order.of_user_name(session[:customer]).of_days(session[:date_from],session[:date_to]) %>
@@ -53,20 +52,25 @@
         <% order_amount = 0 %>
         <% orders.all.each do |order| %>
           <div class="OrderList-div">
-
+          <%= form_with(url: "/order_items/#{order.id}/edit", method: "GET") do %>
+            <%= check_box_tag("order_selected", nil, order.delivered?,
+                    :class=>"DueItem-checkbox", :onclick=>"this.form.submit()"
+                                )
+            %>
+          <% end %>
           <li class="MenuItems-list">
             <label class="MenuItems-container">
 
               <p class= <%= order.delivered? ? "InactiveMenu-text" : "BoldUser-text" %> >
                 <a href="javascript:void(0)" >
-                  <%= link_to "OrderID: #{ order.id } , Customer: #{order.customer},
-                      Amount: #{order.amount} ",
+                  <%= link_to "OrderID: #{ order.id } , Date: #{order.date.to_date.to_s(:short)},
+                         Customer: #{order.customer}, Amount: #{order.amount} ",
                   "/order_items/#{order.id}", method: "get" %>
                 </a>
               </p>
               <p class= <%= order.delivered? ? "InactiveMenu-text" : "BoldUser-text" %> >
                 <% if order.delivered? %>
-                  Delivered on: <%= order.delivered_at %>
+                  Delivered on: <%= order.delivered_at.to_date.to_s(:short) %>
                 <% else %>
                   Pending
                 <% end %>

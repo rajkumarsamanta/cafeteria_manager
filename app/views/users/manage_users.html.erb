@@ -1,7 +1,9 @@
 <section class="MenuSection">
 <% if @current_user %>
   <% if @current_user.role == "owner" %>
+    <p class = "UserNew-title">Create New User </p>
     <div class="AddUser-div">
+
       <%= form_with(url: "/users", method: "POST", class: "AddUser") do %>
       <div class="NewUserName-div">
         <p class="AddUser-title">Name:</p>
@@ -40,29 +42,22 @@
         <li class="MenuItems-list">
           <label class="MenuItems-container">
             <%= form_with(url: "/users/#{user.id}", method: "GET") do %>
-                      <%= check_box_tag("selected", nil, false, :class=>"DueItem-checkbox",
-                                       #  :onclick=>"this.form.submit()"
-                                        )
-                      %>
-                    <% end %>
-                    <p class= <%= (user.role == "owner")? "BoldUser-text" : "" %> >
-                        <%= user.name %>
-                    </p>
-                    <p class="UserItem"> <%= user.role %> </p>
-                    <p class="UserItem-delete" >
-                      <a href="javascript:void(0)" >
-                        <%= form_with(url: "/users/#{user.id}", method: "DELETE") do %>
-                          <%= button_tag("Delete", :class=>"UserItem-delete" ) %>
-                        <% end%>
-                      </a>
-                    </p>
-                    <p class="UserItem-update" >
-                      <a href="javascript:void(0)" >
-                        <%= form_with(url: "/users/#{user.id}", method: "GET") do %>
-                          <%= button_tag("Update", :class=>"UserItem-update" ) %>
-                        <% end%>
-                      </a>
-                    </p>
+              <%= check_box_tag("selected", nil, false, :class=>"DueItem-checkbox",
+                               #  :onclick=>"this.form.submit()"
+                               )
+              %>
+            <% end %>
+            <p class= <%= (user.role == "owner")? "BoldUser-text" : "" %> >
+              <%= user.name %>
+            </p>
+            <p class="UserItem"> <%= user.role %> </p>
+            <p class="UserItem-update" >
+              <a href="javascript:void(0)" >
+                <%= form_with(url: "/users/#{user.id}", method: "GET") do %>
+                  <%= button_tag("Change Role", :class=>"UserItem-update" ) %>
+                <% end%>
+              </a>
+            </p>
           </label>
         </li>
         </div>

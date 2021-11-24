@@ -6,20 +6,7 @@
         <p class="UserNewForm-paragraph">Your Name</p>
         <%= form.text_field :name, class: "UserNewForm-input", autofocus: true %>
       </div>
-      <div class="UserNewForm-div">
-        <p class="UserNewForm-paragraph">You'll play the role of:</p>
-        <div class="UserNewForm-role">
-            <% if session[:current_role] == "owner" %>
-              <%= radio_button_tag("role", "clerk", checked= true )  %>
-              <p class="UserNewForm-paragraph">Clerk </p>
-              <%=   radio_button_tag("role", "owner", checked=false ) %>
-              <p class="UserNewForm-paragraph">Owner </p>
-            <% else %>
-              <%= radio_button_tag("role", "customer", checked=true ) %>
-              <p class="UserNewForm-paragraph">Customer </p>
-            <% end %>
-        </div>
-      </div>
+
       <div class="UserNewForm-div">
         <p class="UserNewForm-paragraph">Email</p>
         <%= form.email_field :email, class: "UserNewForm-input" %>

@@ -32,10 +32,12 @@
               <%= link_to Order.all.count, orders_path, method: "GET" %>
           <% else %>
             <% if !user_orders.empty? %>
-                <%= link_to user_orders.order_count(@current_user.id), orders_path, method: "GET" %>
+              <%= link_to user_orders.order_count(@current_user.id), orders_path, method: "GET" %>
+            <% else %>
+              <%= link_to user_orders.order_count(@current_user.id), orders_path, method: "GET" %>
             <% end %>
           <% end %>
-          Orders: Pending
+          Orders: Pending:
           <% if @current_user.role != "customer" %>
             <%= link_to Order.pending, orders_path, method: "GET" %>
           <% else %>
@@ -53,7 +55,7 @@
           <p> <%= link_to "Sign-out", destroy_session_path, method: "delete" %> </p>
     </div>
     <div class="HomeHeader-div">
-        <p class="HomeHeader-message"> Welcome Cafe to Reedhi's Services. </p>
+        <p class="HomeHeader-message"> Welcome to Cafe Reedhi's Services. </p>
       <% else %>
         <p class="HomeHeader-message">Hello Friend ! Welcome to Cafe Reedhi's Services.
               Please <%= link_to "Sign-in", new_sessions_path, method: "get" %>

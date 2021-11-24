@@ -15,6 +15,56 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_password
+    if current_user && current_user.role == "owner"
+      id = params[:id]
+      user = User.find(id)
+      session[:selected_id] = id
+      session[:selected_user] = user.name
+      session[:selected_role] = user.role
+      session[:selected_email] = user.email
+      session[:selected_password] = user.password
+      if user
+        session[:update_email] = nil
+        session[:update_password] = true
+        session[:update_user] = nil
+
+        render "changepassword"
+      else
+        flash[:error] = user.errors.full_messages.join(", ")
+        redirect_to manage_users_path
+      end
+    else
+      flash[:error] = "Unauthorized access..."
+      redirect_to manage_users_path
+    end
+  end
+
+  def email
+    if current_user && current_user.role == "owner"
+      id = params[:id]
+      user = User.find(id)
+      session[:selected_id] = id
+      session[:selected_user] = user.name
+      session[:selected_role] = user.role
+      session[:selected_email] = user.email
+      session[:selected_password] = user.password
+      if user
+        session[:update_email] = true
+        session[:update_password] = nil
+        session[:update_user] = nil
+
+        render "changepassword"
+      else
+        flash[:error] = user.errors.full_messages.join(", ")
+        redirect_to manage_users_path
+      end
+    else
+      flash[:error] = "Unauthorized access..."
+      redirect_to manage_users_path
+    end
+  end
+
   def changepassword
     if current_user
       render "changepassword"
@@ -45,11 +95,16 @@ class UsersController < ApplicationController
       session[:selected_id] = id
       session[:selected_user] = user.name
       session[:selected_role] = user.role
-      # selected_user = session[:selected_user]
+      session[:selected_email] = user.email
+
+      # session[:update_email] = nil
+      # session[:update_password] = nil
+      # session[:update_user] = true
       if user
-        render "changepassword"
-        #render plain: "Hey #{user.name} ! #{user.role} ID:#{current_user.id} is #{id}"
-        #redirect_to changepassword_user_path
+        session[:update_email] = nil
+        session[:update_password] = nil
+        session[:update_user] = true
+        render "change_role"
       else
         flash[:error] = user.errors.full_messages.join(", ")
         redirect_to manage_users_path
@@ -106,32 +161,56 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    if current_user
+      @users = User.all
+      if current_user.role == "owner"
+        id = params[:id]
+        user = User.find(id)
+        if user && user.authenticate(params[:current_password])
+          user.role = params[:role]
+          if user.save
+            flash[:error] = "Update successfully"
+            session[:update_email] = nil
+            session[:update_password] = nil
+            session[:update_user] = nil
+            redirect_to manager_users_path
+          else
+            flash[:error] = user.errors.full_messages.join(", ")
+            render "change_role"
+          end
+        else
+          flash[:error] = "User not found"
+          render "change_role"
+        end
+      else
+        flash[:error] = "You are not authorized for this action"
+        redirect_to "/"
+      end
+    else
+      flash[:error] = "You are not loggeg in"
+      redirect_to "/"
+    end
+  end
+
   def update
     if current_user
       @users = User.all
-      # id = params[:id]
-      # session[:selected_user] = @users.find(id)
-      if current_user.role == "owner"
-        user = User.find(params[:id])
-        password = params[:password]
-        email = params[:email]
-        name = params[:name]
-        role = params[:role]
-        user.password = password
-        user.name = name
-        user.role = role
-        user.email = email
-      else
+      if current_user.role != "owner"
         user = current_user
-        user.password = params[:password]
+        if user && user.authenticate(params[:current_password])
+          user.password = params[:password]
+        else
+          flash[:error] = "Invalid password"
+          redirect_to changepassword_user_path
+        end
       end
+      session[:update_email] = nil
+      session[:update_password] = nil
+      session[:update_user] = nil
       if user.save
         flash[:error] = "Update successfully"
-        if current_user.role == "owner"
-          redirect_to manage_users_path
-        else
-          redirect_to "/"
-        end
+        redirect_to "/"
       else
         flash[:error] = user.errors.full_messages.join(", ")
         redirect_to changepassword_user_path
@@ -149,6 +228,9 @@ class UsersController < ApplicationController
       if current_user != user
         user.destroy
         flash[:error] = "Successfully deleted"
+        session[:update_email] = nil
+        session[:update_password] = nil
+        session[:update_user] = nil
         redirect_to manage_users_path
       else
         flash[:error] = "You can't delete yourself .."

@@ -25,7 +25,9 @@ class SessionsController < ApplicationController
       session[:date_from] = ""
       session[:date_to] = ""
       session[:customer] = ""
-      # redirect_to users_path
+      session[:update_email] = nil
+      session[:update_password] = nil
+      session[:update_user] = nil
       redirect_to "/"
     else
       flash[:error] = "Invalid login credentials. Please try again.."

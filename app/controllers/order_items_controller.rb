@@ -32,11 +32,19 @@ class OrderItemsController < ApplicationController
     if current_user
       id = params[:id]
       if current_user.role == "owner"
-        render "report"
+        order = Order.find(id)
+        if order
+          if order.delivered_at
+            order.delivered_at = nil
+          else
+            order.delivered_at = Date.today
+          end
+          order.save
+        end
+        render "orders/report"
       else
         if current_user.role == "clerk"
           order = Order.find(id)
-
           if order
             if order.delivered_at
               order.delivered_at = nil

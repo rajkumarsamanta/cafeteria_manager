@@ -46,12 +46,15 @@ class CartsController < ApplicationController
       if cart_item.save
         redirect_to users_path
       else
-        flash[:error] = new_cart_item.errors.full_messages.join(", ")
+        flash[:error] = cart_item.errors.full_messages.join(", ")
         redirect_to users_path
       end
     else
       flash[:error] = "Unauthorized access.."
       redirect_to "/"
     end
+  end
+
+  def destroy
   end
 end

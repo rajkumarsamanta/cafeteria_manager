@@ -2,3 +2,130 @@
   display: flex;
   align-items: baseline;
 }
+
+.OrderTable {
+  width: 50%;
+  border: 2px;
+  border-color: brown;
+}
+
+.OrderCart-div {
+  height: fit-content;
+  width: 95%;
+  border: 2px solid maroon;
+}
+
+.OrderClerk-total {
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 15px;
+}
+
+.OrderConfirm-div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.CartItem-confirm {
+  font-weight: bold;
+}
+
+.OrderItemHeading-div {
+  display: flex;
+  height: fit-content;
+  margin-left: 5px;
+}
+
+.OrderItemHeading-name {
+  font-size: medium;
+  font-weight: bold;
+  text-align: left;
+  width: 180px;
+  margin-left: 60px;
+  margin-right: 10px;
+}
+
+.ActiveOrderCart-item_text {
+  font-size: medium;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 15px;
+}
+.ActiveOrderCart-item_name {
+  font-size: small;
+  font-weight: bold;
+  text-align: left;
+  width: 180px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.ActiveOrderCart-item_price {
+  font-size: small;
+  font-weight: bold;
+  text-align: left;
+  width: 60px;
+  margin-left: 36px;
+  margin-right: 10px;
+}
+.ActiveOrderCart-item_quantity {
+  font-size: small;
+  font-weight: bold;
+  text-align: left;
+  width: 60px;
+  margin-left: 36px;
+  margin-right: 10px;
+}
+.ActiveOrderCart-item_text {
+  font-size: medium;
+  font-weight: bold;
+  margin-left: 36px;
+}
+.ActiveOrderCart-item_amount {
+  font-size: small;
+  font-weight: bold;
+  text-align: left;
+  width: 60px;
+  margin-left: 36px;
+  margin-right: 10px;
+}
+.InactiveOrderCart-item_text {
+  font-size: small;
+  font-weight: 500;
+  color: darkslategray;
+  margin-left: 20px;
+  margin-right: 36px;
+}
+.ItemHeading-name {
+  font-size: 15px;
+  font-weight: bold;
+  width: 180px;
+  margin-left: 1px;
+  margin-right: 10px;
+}
+
+.ItemHeading-rate {
+  font-size: medium;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 36px;
+  margin-right: 10px;
+}
+
+.ItemHeading-quantity {
+  font-size: medium;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 36px;
+  margin-right: 10px;
+}
+
+.ItemHeading-amount {
+  font-size: medium;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 36px;
+  margin-right: 10px;
+}
