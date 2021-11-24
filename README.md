@@ -83,9 +83,5 @@ For each MenuCategory, the owner will be able to:
 
 # To be updated .....
 
-# Clerk
-
-# Owner
-
 
 * ...
