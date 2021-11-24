@@ -33,9 +33,55 @@ This application offers different functionalities for "owner", "clerk" and "cust
    #Number shown in top of their home page. Order status will show all his/her orders with each order's ID, date of order, amount, delivery status. On clicking
    an Order, the details of the order can be seen.
 
-# To be updated .....
+# Cafeteria Billing Clerk
 
-* Operating precedure of "owner" and "clerk" will be described shortly.
+Billing clerks can only sign-in and sign-out. They cannot sign-up by themselves. Their accounts can be created only by the owner from owner's "Manage Users" option. Owner can create either another "Owner" or "Clerk" users. "Customer" users can not be created by "owner", "customer" can only "sign-up" themselves by clicking the "Sign-up" link available in the home page. 
+
+1. Clerk can see the list of all pending orders from the queue of orders (by clicking the Order #No / Pending #No displayed at the top of their home page. They can also mark orders as “delivered” or vice-versa. 
+
+2. Clerk can create orders for offline customers, just like regular customer. However, all orders created by billing clerks will be assigned to a default “Walk-in customer”.
+
+# Cafeteria Owner
+
+Nobody can sign-up as an owner. Instead, the live application should come with an owner already created.
+
+An owner can create other owners (By clicking the "Manage Users" in their home page and "Add" user either "owner" or "clerk".
+
+1. Owner can manage the menu
+
+The Cafeteria has a single menu. The menu is organized as a collection of MenuCategories. A MenuCategory can be headings like Breakfast, Lunch, Indian Breads, North Indian, South Indian, Main Course, Desserts, and so on.These MenuCategories are shown to the users in their home page on logging-in.
+
+Each MenuCategory has multiple MenuItems. Each MenuItem has a name, description and price per quantity. The MenuItems under a MenuCategory can be seen by clicking on the MenuCategory.
+
+In MenuCategories, the owner can :
+
+    See all existing categories
+    Create a new one
+    Update the name of a category
+    Mark one as active/inactive. (Click the checkbox to make the On/Off button visible. Otherwise, "Update" and "Add-item" button is visible on placing the 
+    cursor on the MenuCategory. Inactive MenuCategory and MenuItems are dimmed and will not be available for placing Order.
+
+For each MenuCategory, the owner will be able to:
+
+    See the list of items in the category (MenuItem)
+    Add a new item to the menu
+    Delete or update an existing item
+
+2. Owner can see reports
+
+    Order Reports for any given date range (by going to the order page by clicking the "Order #No / Pending #No" displayed in the top of their home page screen.
+    It will list all invoices in that range (Date From - Date To), name of the customer or both (by giving all three), and total invoice details. It is possible 
+    to click on any invoice and see details of that invoice.
+    Owner can see details of a single invoice
+    Owner can see all the orders made by any given customer in a date range.
+
+3. Owner can manage users (By clicking the "Manage Users" link in their home page)
+
+    Owner can see the list of all users - customers, billing-clerks, and other owners.
+
+    They can create and update billing clerks and owners. They cannot create customers, because customers have to sign-up by themselves.
+
+# To be updated .....
 
 # Clerk
 
