@@ -25,12 +25,47 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
-  margin-left: 5px;
+  margin-left: 2px;
   margin-right: 5px;
 }
-
+.CartItem-div {
+  margin-bottom: 2px;
+}
 .CartItem-confirm {
   font-weight: bold;
+}
+.CartQuantity-div {
+  display: flex;
+  align-items: baseline;
+  align-content: space-between;
+}
+.Cart-item_quantity {
+  font-size: small;
+  font-weight: bold;
+  text-align: center;
+  width: 15px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.CartItem-minus {
+  margin-right: 2px;
+  margin-left: 7px;
+  font-size: larger;
+  font-weight: bold;
+}
+.CartItem-plus {
+  margin-left: 2px;
+  margin-right: 3px;
+  font-size: larger;
+  font-weight: bold;
+}
+.CartItemHeading-name {
+  font-size: medium;
+  font-weight: bold;
+  text-align: left;
+  width: 180px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .OrderItemHeading-div {
@@ -44,10 +79,17 @@
   font-weight: bold;
   text-align: left;
   width: 180px;
-  margin-left: 60px;
+  margin-left: 65px;
   margin-right: 10px;
 }
-
+.ItemHeading-description {
+  font-size: medium;
+  font-weight: bold;
+  text-align: left;
+  width: 70px;
+  margin-left: 25px;
+  margin-right: 10px;
+}
 .ActiveOrderCart-item_text {
   font-size: medium;
   font-weight: bold;
@@ -62,11 +104,35 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+.ActiveMenuItem-name {
+  font-size: small;
+  font-weight: bold;
+  text-align: left;
+  width: 180px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .ActiveOrderCart-item_price {
   font-size: small;
   font-weight: bold;
   text-align: left;
   width: 60px;
+  margin-left: 36px;
+  margin-right: 5px;
+}
+.ActiveMenuItem-description {
+  font-size: small;
+  font-weight: bold;
+  text-align: left;
+  width: 70px;
+  margin-left: 36px;
+  margin-right: 10px;
+}
+.ActiveMenuItem-price {
+  font-size: small;
+  font-weight: bold;
+  text-align: left;
   margin-left: 36px;
   margin-right: 10px;
 }
@@ -77,6 +143,18 @@
   width: 60px;
   margin-left: 36px;
   margin-right: 10px;
+}
+.Order-items {
+  text-align: center;
+  margin: 5px;
+  color: rgb(12, 99, 48);
+  font-weight: bold;
+}
+.OrderItem_total {
+  font-size: medium;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 18px;
 }
 .ActiveOrderCart-item_text {
   font-size: medium;

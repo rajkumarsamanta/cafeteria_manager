@@ -169,6 +169,7 @@ class UsersController < ApplicationController
         user = User.find(id)
         if user && user.authenticate(params[:current_password])
           user.role = params[:role]
+          #user.password = user.password
           user.password = params[:current_password]
           if user.save
             flash[:error] = "Update successfully"

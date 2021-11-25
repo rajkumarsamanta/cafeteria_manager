@@ -34,11 +34,11 @@
           </div>
           <% if menu.active %>
             <% if (menu.selected?(session[:selected_menu_category_id].to_i) && (MenuItem.exist?(session[:selected_menu_category_id].to_i))) %>
-              <p class = "Menu-title">Items. </p>
-              <div class="ItemHeading-div">
-                <p class="ItemHeading-text">Name </p>
-                <p class="ItemHeading-text">Description </p>
-                <p class="ItemHeading-text">Rate (Rs) </p>
+              <p class = "Order-items">Items. </p>
+              <div class="OrderItemHeading-div">
+                <p class="OrderItemHeading-name">Name </p>
+                <p class="ItemHeading-description">Description </p>
+                <p class="ItemHeading-rate">Rate (Rs) </p>
               </div>
               <div class="MenuItems-div">
                 <ul class="MenuUl-list">
@@ -56,13 +56,13 @@
                               %>
                             <% end %>
                           <% end %>
-                          <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <p class= <%= item.active ? "ActiveMenuItem-name" : "InactiveOrderCart-item_text" %> >
                             <%= item.name %>
                           </p>
-                          <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <p class= <%= item.active ? "ActiveMenuItem-description" : "InactiveOrderCart-item_text" %> >
                             <%= item.description %>
                           </p>
-                          <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                          <p class= <%= item.active ? "ActiveMenuItem-price" : "InactiveOrderCart-item_text" %> >
                             <%= item.price %>
                           </p>
                           <% if @current_user.role != "owner"%>
@@ -79,6 +79,7 @@
                         </label>
                       </li>
                     </div>
+                    <hr>
                   <% end %>
                 </ul>
               </div>
@@ -91,44 +92,46 @@
     <% if Cart.of_user(@current_user.id) && @current_user.role != "owner" %>
       </td>
       <td>
-      <p class = "Menu-title">Items in Cart </p>
-      <div class="MenuCategory-div">
-        <div class="ItemHeading-div">
-          <p class="ItemHeading-text">Name </p>
-          <p class="ItemHeading-text">Rate </p>
-          <p class="ItemHeading-text">Quantity </p>
-          <p class="ItemHeading-text">Amount </p>
+      <p class = "Order-items">Items in Cart </p>
+      <div class="OrderCart-div">
+        <div class="OrderItemHeading-div">
+          <p class="CartItemHeading-name">Name </p>
+          <p class="ItemHeading-rate">Rate </p>
+          <p class="ItemHeading-quantity">Quantity </p>
+          <p class="ItemHeading-amount">Amount </p>
         </div>
         <hr>
         <% total = 0 %>
         <% CartItem.of_cart_id(Cart.of_user(@current_user.id).id).each do |item| %>
-          <div class="UserList-div">
+          <div class="CartItem-div">
             <li class="MenuItems-list">
               <label class="MenuItems-container">
-                <p class= "BoldUser-text" >
+                <p class="ActiveOrderCart-item_name" >
                   <%= item.menu_item_name %>
                 </p>
-                <p class= "BoldUser-text" >
+                <p class="ActiveOrderCart-item_price"  >
                   <%= item.menu_item_price %>
                 </p>
-                <p class="UserItem-update" >
-                  <a href="javascript:void(0)" >
-                    <%= form_with(url: "/cart_items/#{item.id}/minus", method: "GET") do %>
-                      <%= button_tag("-", :class=>"CartItem-minus" ) %>
-                    <% end%>
-                  </a>
-                </p>
-                <p class= "BoldUser-text" >
-                  <%= item.quantity %>
-                </p>
-                <p class="UserItem-update" >
-                  <a href="javascript:void(0)" >
-                    <%= form_with(url: "/cart_items/#{item.id}/plus", method: "GET") do %>
-                      <%= button_tag("+", :class=>"CartItem-plus" ) %>
-                    <% end%>
-                  </a>
-                </p>
-                <p class= "BoldUser-text" >
+                <div class="CartQuantity-div">
+                  <p class="UserItem-update" >
+                    <a href="javascript:void(0)" >
+                      <%= form_with(url: "/cart_items/#{item.id}/minus", method: "GET") do %>
+                        <%= button_tag("-", :class=>"CartItem-minus" ) %>
+                      <% end%>
+                    </a>
+                  </p>
+                  <p class="Cart-item_quantity" >
+                    <%= item.quantity %>
+                  </p>
+                  <p class="UserItem-update" >
+                    <a href="javascript:void(0)" >
+                      <%= form_with(url: "/cart_items/#{item.id}/plus", method: "GET") do %>
+                        <%= button_tag("+", :class=>"CartItem-plus" ) %>
+                      <% end%>
+                    </a>
+                  </p>
+                </div>
+                <p class="ActiveOrderCart-item_text" >
                   <%= item.menu_item_price*item.quantity %>
                 </p>
                 <p class="UserItem-update" >
@@ -141,17 +144,20 @@
               </label>
             </li>
           </div>
-          <% total = total + item.menu_item_price*item.quantity %>
+          <hr>
+          <p class="ActiveOrderCart-item_text" >
+            <% total = total + item.menu_item_price*item.quantity %>
+          </p>
         <% end %>
-        <div  class="HomeBanner-div">
+        <div  class="OrderConfirm-div">
           <p class="CartItem-update" >
               <a href="javascript:void(0)" >
                 <%= form_with(url: "/orders", method: "POST") do %>
-                  <%= button_tag("Confirm Order", :class=>"CartItem-update" ) %>
+                  <%= button_tag("Confirm Order", :class=>"CartItem-confirm" ) %>
                 <% end%>
               </a>
           </p>
-          <p class= "BoldUser-text" > Total:
+          <p class="OrderClerk-total" > Total:
             <%= total %>
           </p>
         </div>
