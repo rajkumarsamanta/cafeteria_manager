@@ -169,12 +169,13 @@ class UsersController < ApplicationController
         user = User.find(id)
         if user && user.authenticate(params[:current_password])
           user.role = params[:role]
+          user.password = params[:current_password]
           if user.save
             flash[:error] = "Update successfully"
             session[:update_email] = nil
             session[:update_password] = nil
             session[:update_user] = nil
-            redirect_to manager_users_path
+            redirect_to manage_users_path
           else
             flash[:error] = user.errors.full_messages.join(", ")
             render "change_role"

@@ -79,6 +79,11 @@
   margin-bottom: 8px;
 }
 
+.UserChangeRole-submitbutton {
+  margin-left: 5px;
+  font-size: 15px;
+  background-color: rgb(78, 163, 78);
+}
 .UserNewForm-submitbutton {
   margin-bottom: 10px;
   font-size: 15px;
