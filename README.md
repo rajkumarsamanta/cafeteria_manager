@@ -1,11 +1,15 @@
 # README
-
-# cafeteria_manager
+# Cafeteria Manager App
 ## SaaS WD201 Capstone Project (option 1) under development
 
-This README explain the steps necessary to get the Cafeteria application up and running.
+This is a Cafeteria Management App developed on Rails. This app is made for three types of user's roles like Manager (owner), Staff (clerk) and customer. Manager can create user for other manager of staff, change the role of a registered customer to manager or staff after log-in by giving the existing password of a customer.
 
-This application offers different functionalities for "owner", "clerk" and "customer"
+The steps necessary to get the Cafeteria application up and running. The roles and different functionalities for "owner", "clerk" and "customer" are explained below:
+
+The Operational credetials for "Owner" and a "clerk" is given for your use and operation. You can create a customer by using the "Sign-up" link the home page.
+
+* owner - email: raj@kumar.com, password: kumar
+* clerk - email: reedhi@reedhi.com, password: reedhi
 
 ## Customer
 
@@ -81,7 +85,8 @@ For each MenuCategory, the owner will be able to:
 
     They can create and update billing clerks and owners. They cannot create customers, because customers have to sign-up by themselves.
 
-# To be updated .....
+Sample screenshots are given below:
 
+![Cafeterial Management App Screenshot](/app/assets/images/Cafe1.png)
 
 * ...
