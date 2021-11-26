@@ -16,10 +16,15 @@
                       <p class="UserNewForm-paragraph">Owner </p>
                 </div>
               </div>
-
+              <div class="NewUserRole-div">
+                <div class="NewUserRole-div">
+                  <p class="UserNewForm-paragraph">Current Password</p>
+                  <%= form.password_field :current_password, autofocus: true %>
+                </div>
                 <div class="NewUserRole-div">
                   <%= form.submit "Change Role", class: "UserChangeRole-submitbutton" %>
                 </div>
+              </div>
             </div>
           <% end %>
         <% end %>

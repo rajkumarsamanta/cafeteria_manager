@@ -167,10 +167,10 @@ class UsersController < ApplicationController
       if current_user.role == "owner"
         id = params[:id]
         user = User.find(id)
-        if user && user.authenticate(params[:current_password])
+        if user #&& user.authenticate(params[:current_password])
           user.role = params[:role]
           #user.password = user.password
-          user.password = params[:current_password]
+          #user.password = params[:current_password]
           if user.save
             flash[:error] = "Update successfully"
             session[:update_email] = nil
