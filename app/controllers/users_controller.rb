@@ -104,7 +104,7 @@ class UsersController < ApplicationController
         session[:update_email] = nil
         session[:update_password] = nil
         session[:update_user] = true
-        render "change_role"
+        render "role"
       else
         flash[:error] = user.errors.full_messages.join(", ")
         redirect_to manage_users_path
@@ -168,22 +168,23 @@ class UsersController < ApplicationController
         id = params[:id]
         user = User.find(id)
         if user #&& user.authenticate(params[:current_password])
-          user.role = params[:role]
-          #user.password = user.password
-          #user.password = params[:current_password]
-          if user.save
-            flash[:error] = "Update successfully"
-            session[:update_email] = nil
-            session[:update_password] = nil
-            session[:update_user] = nil
-            redirect_to manage_users_path
-          else
-            flash[:error] = user.errors.full_messages.join(", ")
-            render "change_role"
-          end
+          #         user.role = params[:role]
+          #         #user.password = user.password
+          #         #user.password = params[:current_password]
+          #         if user.save
+          #           flash[:error] = "Update successfully"
+          #           session[:update_email] = nil
+          #           session[:update_password] = nil
+          session[:update_user] = true
+          render "role"
+          #           redirect_to manage_users_path
+          #         else
+          #           flash[:error] = user.errors.full_messages.join(", ")
+          #           render "change_role"
+          #         end
         else
           flash[:error] = "User not found"
-          render "change_role"
+          render "role"
         end
       else
         flash[:error] = "You are not authorized for this action"
@@ -195,6 +196,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def role
+    if current_user && current_user.role == "owner"
+      id = params[:id]
+      user = User.find(id)
+      session[:selected_id] = id
+      session[:selected_user] = user.name
+      session[:selected_role] = user.role
+      session[:selected_email] = user.email
+      if user
+        session[:update_email] = nil
+        session[:update_password] = nil
+        session[:update_user] = true
+        render "role"
+      else
+        flash[:error] = user.errors.full_messages.join(", ")
+        redirect_to manage_users_path
+      end
+    else
+      flash[:error] = "Unauthorized access..."
+      redirect_to manage_users_path
+    end
+  end
+
   def update
     if current_user
       @users = User.all
@@ -202,21 +226,48 @@ class UsersController < ApplicationController
         user = current_user
         if user && user.authenticate(params[:current_password])
           user.password = params[:password]
+          if user.save
+            flash[:error] = "Update successfully"
+            redirect_to "/"
+          else
+            flash[:error] = user.errors.full_messages.join(", ")
+            redirect_to changepassword_user_path
+          end
         else
           flash[:error] = "Invalid password"
           redirect_to changepassword_user_path
+        end
+      else
+        id = params[:id]
+        user = User.find(id)
+        if user
+          user.role = params[:role]
+          if user.save
+            flash[:error] = "Update successfully"
+            redirect_to "/"
+          else
+            flash[:error] = user.errors.full_messages.join(", ")
+            render "role"
+          end
+        else
+          flash[:error] = "User not found"
+          render "role"
         end
       end
       session[:update_email] = nil
       session[:update_password] = nil
       session[:update_user] = nil
-      if user.save
-        flash[:error] = "Update successfully"
-        redirect_to "/"
-      else
-        flash[:error] = user.errors.full_messages.join(", ")
-        redirect_to changepassword_user_path
-      end
+      # if user.save
+      #   flash[:error] = "Update successfully"
+      #   redirect_to "/"
+      # else
+      #   flash[:error] = user.errors.full_messages.join(", ")
+      #   if current_user.role != "owner"
+      #     redirect_to changepassword_user_path
+      #   else
+      #     render "role"
+      #   end
+      # end
     else
       flash[:error] = "You are not loggeg in"
       redirect_to "/"

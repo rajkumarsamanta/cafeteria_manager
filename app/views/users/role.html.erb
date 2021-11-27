@@ -1,0 +1,29 @@
+<% if @current_user && @current_user.role == "owner"  %>
+    <p class = "UserNew-title">Update User </p>
+    <div class="NewUserRole-div">
+      <div class="NewUserName-div">
+        <p class="AddUser-title"> User Name : <%= session[:selected_user] %> </p>
+      </div>
+        <% if session[:update_user] %>
+          <%= form_with(url: "/users/#{session[:selected_id]}", method: "PATCH" ) do |form| %>
+            <div class="NewUserRole-div">
+              <div class="NewUserRole-div">
+                <p class="UserNewForm-paragraph">Role: <%= "#{session[:selected_role]}" %> </p>
+                <div class="NewUserName-div">
+                    <%= form.radio_button :role, "clerk" %>
+                      <p class="UserNewForm-paragraph">Clerk </p>
+                    <%= form.radio_button :role, "owner" %>
+                      <p class="UserNewForm-paragraph">Owner </p>
+                </div>
+              </div>
+
+                <div class="NewUserRole-div">
+                  <%= form.submit "Change", class: "UserChangeRole-submitbutton" %>
+                </div>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+<% else %>
+  <p class="ChangePassword-title">You are not logged in.</p>
+<% end %>
