@@ -70,11 +70,11 @@
         </div>
         <% if menu.active %>
           <% if (menu.selected?(session[:selected_menu_category_id].to_i) && (MenuItem.exist?(session[:selected_menu_category_id].to_i))) %>
-            <p class = "Menu-title">Items. </p>
-            <div class="ItemHeading-div">
-              <p class="ItemHeading-text">Name </p>
-              <p class="ItemHeading-text">Description </p>
-              <p class="ItemHeading-text">Rate (Rs) </p>
+            <p class = "Order-items">Items. </p>
+            <div class="OrderItemHeading-div">
+              <p class="OrderItemHeading-name">Name </p>
+              <p class="ItemHeading-description">Description </p>
+              <p class="ItemHeading-rate">Rate (Rs) </p>
             </div>
             <div class="MenuItems-div">
               <ul class="MenuUl-list">
@@ -90,13 +90,13 @@
                                                   )
                           %>
                         <% end %>
-                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                        <p class= <%= item.active ? "ActiveMenuItem-name" : "InactiveOrderCart-item_text" %> >
                           <%= item.name %>
                         </p>
-                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                        <p class= <%= item.active ? "ActiveMenuItem-name" : "InactiveOrderCart-item_text"%> >
                           <%= item.description %>
                         </p>
-                        <p class= <%= item.active ? "BoldUser-text" : "InactiveMenu-text" %> >
+                        <p class= <%= item.active ? "ActiveMenuItem-name" : "InactiveOrderCart-item_text" %> >
                           <%= item.price %>
                         </p>
                         <p class="UserItem-delete" >
