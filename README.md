@@ -1,4 +1,4 @@
-# README also available in MASTER
+# [**README also available in MASTER**](https://github.com/rajkumarsamanta/cafeteria_manager/blob/master/README.md)
 ## Cafeteria Management project is in branch MASTER
 
 # [**Cafeteria Manager App**](https://rks-cafe-manager-saas-201.herokuapp.com/)
@@ -82,22 +82,5 @@ An owner can create other owners (By clicking the "Manage Users" in their home p
  * Owner can see the list of all users - customers, billing-clerks, and other owners.
  * They can create and update billing clerks and owners. They cannot create customers, because customers have to sign-up by themselves.
 
-## Sample screenshots are given below:
+## [**Sample screenshots are given in the MASTER README**](https://github.com/rajkumarsamanta/cafeteria_manager/blob/master/README.md)
 
-## Home Page
-[**![Cafeterial Management App Screenshot](./master/app/assets/images/Cafe1.png)**](https://rks-todo-manager-saas-201.herokuapp.com/)
-
-## Sign-in Page
-![Cafeterial Management App Screenshot](/app/assets/images/Cafe-sign-in.png)
-
-## Sign-up Page
-![Cafeterial Management App Screenshot](/app/assets/images/Cafe-sign-up.png)
-
-## Staff Home Page
-![Cafeterial Management App Screenshot](/app/assets/images/Cafe-clerk-home.png)
-
-## Staff order Page
-![Cafeterial Management App Screenshot](/app/assets/images/Cafe-clerk-order.png)
-
-
-## #####################
