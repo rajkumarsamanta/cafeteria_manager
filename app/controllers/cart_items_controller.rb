@@ -67,8 +67,13 @@ class CartItemsController < ApplicationController
       if @current_user.role != "owner"
         id = params[:id]
         cart_item = CartItem.find(id)
+        cart_id = cart_item.cart_id
         #render plain: "#{current_user.name}, ID: #{current_user.id}, Item ID: #{id}, Item: #{cart_item.id}"
         if cart_item.destroy
+          if CartItem.of_cart_id(cart_id).empty?
+            cart = Cart.find(cart_id)
+            cart.destroy
+          end
           flash[:error] = "Item removed from cart successfully"
           redirect_to users_path
         else

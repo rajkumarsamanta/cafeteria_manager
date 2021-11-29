@@ -33,7 +33,8 @@ class OrdersController < ApplicationController
     if current_user
       #id = params[:id]
       cart = Cart.of_user(current_user.id)
-      if cart
+      cart_items = CartItem.of_cart_id(cart.id)
+      if !cart_items.empty?
         if current_user.role == "clerk"
           user = User.find_by(name: "Walk-in customer")
           if user
@@ -49,7 +50,7 @@ class OrdersController < ApplicationController
         )
         if order.save
           session[:user_order_id] = order.id
-          cart_items = CartItem.of_cart_id(cart.id)
+          #cart_items = CartItem.of_cart_id(cart.id)
           if cart_items
             cart_items.each do |item|
               order_item = OrderItem.new(
