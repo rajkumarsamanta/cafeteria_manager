@@ -113,7 +113,7 @@
 
 .MenuItems-list:hover {
   background-color: lightgray;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .MenuItems-container {
