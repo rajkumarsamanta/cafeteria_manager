@@ -67,18 +67,18 @@
                               <p class= <%= item.active ? "ActiveMenuItem-price" : "InactiveOrderCart-item_text" %> >
                                 <%= item.price %>
                               </p>
-                              <% if @current_user.role != "owner"%>
+                            </label>
+                            <% if @current_user.role != "owner"%>
                                 <% if item.active %>
-                                  <p class="UserItem-update" >
+                                  <p class="MenuItem-cart_button" >
                                     <a href="javascript:void(0)" >
                                       <%= form_with(url: "/carts/#{item.id}/edit", method: "GET") do %>
-                                        <%= button_tag("Add to Cart", :class=>"UserItem-update" ) %>
+                                        <%= submit_tag("Add to Cart", :class=>"MenuItem-add_cart" ) %>
                                       <% end%>
                                     </a>
                                   </p>
                                 <% end %>
                               <% end %>
-                            </label>
                           </li>
                         </div>
                         <hr>
@@ -116,6 +116,7 @@
                 <p class="ActiveOrderCart-item_price"  >
                   <%= item.menu_item_price %>
                 </p>
+              </label>
                 <div class="CartQuantity-div">
                   <p class="UserItem-update" >
                     <a href="javascript:void(0)" >
@@ -145,7 +146,7 @@
                     <% end%>
                   </a>
                 </p>
-              </label>
+
             </li>
           </div>
           <hr>

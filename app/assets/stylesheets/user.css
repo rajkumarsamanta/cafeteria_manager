@@ -10,6 +10,9 @@
   align-items: baseline;
 }
 
+.MenuUl-list {
+  list-style: none;
+}
 .AddUser-div {
   display: flex;
   align-items: baseline;
@@ -113,7 +116,7 @@
 
 .MenuItems-list:hover {
   background-color: lightgray;
-  /* cursor: pointer; */
+  cursor: pointer;
 }
 
 .MenuItems-container {
@@ -124,28 +127,43 @@
   margin-right: 10px;
 }
 
+.MenuItem-add_cart {
+  visibility: hidden;
+}
+.MenuItems-list:hover .MenuItem-add_cart {
+  visibility: visible;
+  /*cursor: pointer; */
+}
+.MenuItem-cart_button {
+  color: brown;
+}
+
+.MenuItems-list:hover .MenuItem-cart_button {
+  visibility: visible;
+}
+
 .MenuItems-list:hover .MenuItems-list {
   width: fit-content;
 }
 
 .UserItem-delete {
   visibility: hidden;
-  margin-left: 10px;
+  /*margin-left: 10px; */
 }
 
 .UserItem-update {
   visibility: hidden;
-  margin-left: 10px;
+  /*margin-left: 10px; */
 }
 
 .MenuItems-list:hover .UserItem-update {
   visibility: visible;
-  cursor: pointer;
+  /*cursor: pointer; */
 }
 
 .MenuItems-list:hover .UserItem-delete {
   visibility: visible;
-  cursor: pointer;
+  /*cursor: pointer;  */
 }
 .MenuItems-list {
   display: flex;
