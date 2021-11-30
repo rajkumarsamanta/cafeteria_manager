@@ -83,12 +83,7 @@
                     <li class="MenuItems-list">
                       <label class="MenuItems-container">
                         <%= form_with(url: "/menu_items/#{item.id}", method: "GET") do %>
-                          <%= check_box_tag("menu_item_selected", nil,
-                                      item.selected?(session[:selected_menu_item_id].to_i),
-                                      :class=>"DueItem-checkbox",
-                                      :onclick=>"this.form.submit()"
-                                                  )
-                          %>
+
                         <% end %>
                         <p class= <%= item.active ? "ActiveMenuItem-name" : "InactiveOrderCart-item_text" %> >
                           <%= item.name %>
@@ -99,6 +94,7 @@
                         <p class= <%= item.active ? "ActiveMenuItem-name" : "InactiveOrderCart-item_text" %> >
                           <%= item.price %>
                         </p>
+                      </label>
                         <p class="UserItem-delete" >
                                 <a href="javascript:void(0)" >
                                   <%= form_with(url: "/menu_items/#{item.id}", method: "DELETE") do %>
@@ -120,7 +116,7 @@
                             <% end%>
                           </a>
                         </p>
-                      </label>
+
                     </li>
                   </div>
                 <% end %>
